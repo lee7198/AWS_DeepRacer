@@ -4,8 +4,9 @@
 
 ### Parameters of reward functions
 
-| x & y                | 트랙상에서 차량의 위치                    |
+| Params               | Description                               |
 | -------------------- | ----------------------------------------- |
+| x & y                | 트랙상에서 차량의 위치                    |
 | heading              | 트랙상 차량의 방향                        |
 | waypoints            | 웨이포인트 좌표 목록                      |
 | closest_waypoints    | 차량에 가장 가까운 두 웨이포인트의 인덱스 |
