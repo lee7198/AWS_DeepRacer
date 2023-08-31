@@ -146,7 +146,6 @@ def reward_function(params):
         136,
     ]
     right = [24, 25, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132]
-
     fast = [
         2,
         3,
@@ -303,7 +302,9 @@ def reward_function(params):
     ]
     slow = [84, 85, 139, 140]
 
+    # 현재 waypoint
     closest = params["closest_waypoints"]
+    # 다음 waypoint
     nextwaypoint = max(closest[0], closest[1])
 
     if params["all_wheels_on_track"] == True:
