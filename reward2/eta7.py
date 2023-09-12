@@ -12,17 +12,19 @@ def reward_function(params):
     closest_waypoints = params["closest_waypoints"]
     next_point = waypoints[closest_waypoints[1]]
 
-    if is_left_of_center == True:
-        reward = 10
-    else:
-        reward = 1
-
     if all_wheels_on_track == False:
         reward = 1e-3
 
     # 직선코스에서 조향각도 제한
     if next_point[0] in straight_points:
-        if abs_steering > 5:
-            reward *= 0.5
+        if abs_steering < 7:
+            reward = 15
+        else:
+            reward = 1
+    else:
+        if is_left_of_center == True:
+            reward = 10
+        else:
+            reward = 1
 
     return float(reward)
