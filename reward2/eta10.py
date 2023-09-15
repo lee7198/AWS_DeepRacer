@@ -1,5 +1,5 @@
 # 주행 트렉에서 직선 포인트들
-straight_points = list(range(12, 38)) + list(range(102, 142))
+straight_points = list(range(12, 38)) + list(range(50, 75)) + list(range(102, 142))
 
 
 def reward_function(params):
@@ -12,6 +12,7 @@ def reward_function(params):
     closest_waypoints = params["closest_waypoints"]
     track_width = params["track_width"]
     distance_from_center = params["distance_from_center"]
+    speed = params["speed"]
 
     next_point = waypoints[closest_waypoints[1]]
     marker_1 = 0.1 * track_width
@@ -19,21 +20,19 @@ def reward_function(params):
     marker_3 = 0.5 * track_width
 
     # 직선코스에서 조향각도 제한
+    if is_left_of_center == True:
+        if distance_from_center <= marker_1:
+            reward = 0.1
+        elif distance_from_center <= marker_2:
+            reward = 0.5
+        elif distance_from_center <= marker_3:
+            reward = 1
+
     if next_point[0] in straight_points:
-        if abs_steering < 5:
-            reward = 15
-        else:
-            reward = 1
-    else:
-        if is_left_of_center == True:
-            if distance_from_center <= marker_1:
-                reward = 5
-            elif distance_from_center <= marker_2:
-                reward = 10
-            elif distance_from_center <= marker_3:
-                reward = 15
-        else:
-            reward = 1
+        if abs_steering > 5:
+            reward *= 0.8
+        if speed >= 2.5:
+            reward += 1
 
     if all_wheels_on_track == False:
         reward = 1e-3
