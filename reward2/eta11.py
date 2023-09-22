@@ -20,6 +20,7 @@ def reward_function(params):
     marker_3 = 0.5 * track_width
 
     if next_point in straight_points:
+        # 직선코스에서 조향각도 제한
         if abs_steering > 2.5:
             reward = 1
         if speed >= 3.2:
@@ -27,7 +28,6 @@ def reward_function(params):
         elif speed <= 2.8:
             reward -= 0.5
     else:
-        # 직선코스에서 조향각도 제한
         if is_left_of_center == True:
             if distance_from_center <= marker_1:
                 reward += 0.1
