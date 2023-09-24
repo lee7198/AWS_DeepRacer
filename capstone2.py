@@ -1,8 +1,5 @@
 import math
 
-# 주행 트렉에서 직선 포인트들
-straight_points = list(range(15, 35)) + list(range(55, 75)) + list(range(110, 140))
-
 
 class Reward:
     def __init__(self, verbose=False):
@@ -282,12 +279,6 @@ class Reward:
         closest_waypoints = params["closest_waypoints"]
         is_offtrack = params["is_offtrack"]
 
-        # 지도학습에 사용할 변수들
-        next_point = waypoints[closest_waypoints[1]]
-        marker_1 = 0.1 * track_width
-        marker_2 = 0.25 * track_width
-        marker_3 = 0.5 * track_width
-
         ############### OPTIMAL X,Y,SPEED,TIME ################
 
         # Get closest indexes for racing line (and distances to all points on racing line)
@@ -381,16 +372,6 @@ class Reward:
         else:
             finish_reward = 0
         reward += finish_reward
-
-        # 지도학습 part
-        if next_point not in straight_points:
-            if is_left_of_center == True:
-                if distance_from_center <= marker_1:
-                    reward *= 0.8
-            elif distance_from_center <= marker_2:
-                reward *= 0.9
-            elif distance_from_center <= marker_3:
-                reward *= 1.1
 
         ## Zero reward if off track ##
         if all_wheels_on_track == False:
