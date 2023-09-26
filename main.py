@@ -681,7 +681,9 @@ trackList = [
 
 
 for index, item in enumerate(trackList):
-    item[2] *= 1.1
+    item[2] *= 1.15
     item[2] = round(item[2], 5)
+    if item[2] >= 4:
+        item[2] = 4
 
 print(trackList)
